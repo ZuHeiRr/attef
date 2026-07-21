@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Tasneem ❤️</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #000, #1b1b1b, #3d001f);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        color: white;
+        padding: 20px 0;
+      }
+
+      .container {
+        text-align: center;
+        padding: 30px;
+        width: 95%;
+        max-width: 750px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(255, 0, 80, 0.4);
+        animation: fade 1s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input {
+        padding: 12px;
+        border: none;
+        border-radius: 10px;
+        width: 220px;
+        margin: 15px;
+        font-size: 18px;
+        text-align: center;
+        outline: none;
+      }
+
+      button {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #ff2d75;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 15px;
+      }
+
+      button:hover {
+        transform: scale(1.08);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      #timer {
+        font-size: 22px;
+        margin: 20px 0;
+        color: #ff7aa9;
+        font-weight: bold;
+      }
+
+      .message {
+        font-size: 18px;
+        line-height: 1.8;
+        margin-top: 15px;
+        margin-bottom: 25px;
+      }
+
+      /* مشغل الموسيقى */
+      .audio-player {
+        margin: 15px 0;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 45, 117, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .audio-player p {
+        font-size: 14px;
+        color: #ff7aa9;
+      }
+
+      /* تصميم ألبوم الصور ثلاثي الأبعاد */
+      .book-container {
+        width: 320px;
+        height: 420px;
+        position: relative;
+        margin: 30px auto;
+        perspective: 1500px;
+      }
+
+      .book {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
+      }
+
+      .page {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-style: preserve-3d;
+        transform-origin: left center;
+        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        cursor: pointer;
+      }
+
+      .front,
+      .back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        backface-visibility: hidden;
+        border-radius: 0 10px 10px 0;
+        box-shadow:
+          inset -5px 0 10px rgba(0, 0, 0, 0.2),
+          0 5px 15px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #222;
+      }
+
+      .back {
+        transform: rotateY(180deg);
+        border-radius: 10px 0 0 10px;
+      }
+
+      .page img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .page.flipped {
+        transform: rotateY(-180deg);
+      }
+
+      .cover-front {
+        background: linear-gradient(45deg, #ff2d75, #3d001f);
+        color: white;
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        border: 2px solid #ff7aa9;
+      }
+
+      .cover-back {
+        background: linear-gradient(45deg, #3d001f, #ff2d75);
+        color: white;
+        font-size: 24px;
+        border: 2px solid #ff7aa9;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 22px;
+        animation: fall linear infinite;
+        opacity: 0.7;
+        z-index: 999;
+        pointer-events: none;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .hint {
+        font-size: 14px;
+        color: #aaa;
+        margin-top: 5px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container" id="login">
+      <h1>❤️ Welcome Tasneem ❤️</h1>
+      <p style="margin-top: 15px">في مكان معمول مخصوص ليكي...</p>
+      <input type="password" id="pass" placeholder="Password" />
+      <br />
+      <button onclick="login()">دخول</button>
+    </div>
+
+    <div class="container hidden" id="main">
+      <h1>❤️ Tasneem ❤️</h1>
+      <h3 style="margin-top: 15px">من يوم 6 / 3 / 2026</h3>
+
+      <div id="timer"></div>
+
+      <!-- مشغل الموسيقى -->
+      <div class="audio-player">
+        <p>🎵 عمرو دياب - يا أجمل عيون</p>
+        <audio
+          id="bg-music"
+          src="../../../../../../../../../../قرأن/_قران_رقم_1(MP3).mp3"
+          controls
+          style="height: 30px; width: 200px"
+        ></audio>
+      </div>
+
+      <div class="message">
+        إلى تسنيم ❤️<br />
+        من أول يوم دخلتي حياتي، بقيت كل حاجة أجمل... وجودك فرق معايا بطريقة
+        مستحيل أوصفها.<br />
+        كل يوم بيعدي بكتشف سبب جديد يخليني أحبك أكتر.
+      </div>
+
+      <!-- ألبوم الصور التفاعلي مدمج به صوركما الخاصة -->
+      <p class="hint">اضغطي على صفحات الكتاب لتقليبها واستعراض الصور ❤️</p>
+      <div class="book-container">
+        <div class="book" id="album">
+          <!-- صفحة 1: الغلاف -->
+          <div class="page" onclick="flipPage(this)">
+            <div class="front cover-front">
+              <h2 style="margin-bottom: 20px">ألبوم ذكرياتنا ❤️</h2>
+              <p>اضغطي هنا ليفتح الكتاب...</p>
+              <span style="font-size: 50px; margin-top: 30px">📖</span>
+            </div>
+            <div class="back">
+              <!-- الصورة الأولى -->
+              <img src="/-5918058097862096981_121.jpg" alt="تسنيم 1" />
+            </div>
+          </div>
+
+          <!-- صفحة 2 -->
+          <div class="page" onclick="flipPage(this)">
+            <div class="front">
+              <!-- الصورة الثانية -->
+              <img src="/-5962767517707516486_121.jpg" alt="تسنيم 2" />
+            </div>
+            <div class="back">
+              <!-- الصورة الثالثة -->
+              <img src="/4544.jpg" alt="تسنيم 3" />
+            </div>
+          </div>
+
+          <!-- صفحة 3 -->
+          <div class="page" onclick="flipPage(this)">
+            <div class="front">
+              <!-- الصورة الرابعة -->
+              <img src="/5047.jpg" alt="تسنيم 4" />
+            </div>
+            <div class="back">
+              <!-- الصورة الخامسة -->
+              <img src="/5575.jpg" alt="تسنيم 5" />
+            </div>
+          </div>
+
+          <!-- صفحة 4 -->
+          <div class="page" onclick="flipPage(this)">
+            <div class="front">
+              <!-- الصورة السادسة -->
+              <img src="/IMG_20220827_180403_676.jpg" alt="تسنيم 6" />
+            </div>
+            <div class="back">
+              <!-- الصورة السابعة -->
+              <img src="/IMG_20231125_130729.jpg" alt="تسنيم 7" />
+            </div>
+          </div>
+
+          <!-- صفحة 5: الغلاف الأخير -->
+          <div class="page" onclick="flipPage(this)">
+            <div class="front">
+              <img src="/IMG_٢٠٢١٠٧٢٤_٢٣٢٨٠٥.jpg" alt="تسنيم 8" />
+            </div>
+            <div class="back cover-back">
+              <div>بحبك للآخر ❤️</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="message">
+        يمكن معرفش أقول كل اللي جوايا، بس أتمنى تفضلي دايمًا أسعد حاجة
+        حصلتلي.<br />
+        شكراً إنك موجودة، وشكراً إنك خليتي قلبي يعرف يعني إيه حب حقيقي.<br />
+        بحبك يا Tot ❤️
+      </div>
+
+      <button onclick="alert('أحبك جدًا ❤️')">اضغطي هنا ❤️</button>
+    </div>
+
+    <script>
+      function login() {
+        if (document.getElementById("pass").value.toLowerCase() == "tot") {
+          document.getElementById("login").classList.add("hidden");
+          document.getElementById("main").classList.remove("hidden");
+          setupLayers();
+
+          // تشغيل الموسيقى تلقائياً عند الدخول
+          const audio = document.getElementById("bg-music");
+          audio.play().catch((error) => {
+            console.log("الرجاء تشغيل الموسيقى يدوياً إذا حظرها المتصفح.");
+          });
+        } else {
+          alert("الباسورد غلط ❤️");
+        }
+      }
+
+      function flipPage(page) {
+        if (page.classList.contains("flipped")) {
+          page.classList.remove("flipped");
+          setTimeout(() => {
+            setupLayers();
+          }, 180);
+        } else {
+          page.classList.add("flipped");
+          setTimeout(() => {
+            setupLayers();
+          }, 180);
+        }
+      }
+
+      function setupLayers() {
+        const pages = document.querySelectorAll(".page");
+        pages.forEach((page, index) => {
+          if (page.classList.contains("flipped")) {
+            page.style.zIndex = index;
+          } else {
+            page.style.zIndex = pages.length - index;
+          }
+        });
+      }
+
+      const start = new Date("2026-03-06");
+      setInterval(() => {
+        const now = new Date();
+        const diff = now - start;
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById("timer").innerHTML =
+          `❤️ بقالنا ${d} يوم ${h} ساعة ${m} دقيقة ${s} ثانية`;
+      }, 1000);
+
+      setInterval(() => {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = 3 + Math.random() * 4 + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+      }, 300);
+    </script>
+  </body>
+</html>
