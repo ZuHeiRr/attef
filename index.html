@@ -14,18 +14,22 @@
 
     <style>
       :root {
-        --bg-1: #1a0410;
-        --bg-2: #2b0714;
-        --bg-3: #3d0a1f;
+        --bg-1: #240333;
+        --bg-2: #4a0a2e;
+        --bg-3: #7a0f2e;
+        --bg-4: #ff5d7a;
         --rose: #ff4d79;
         --rose-soft: #ff8aa8;
         --blush: #ffd9e2;
-        --gold: #e8b4a0;
+        --gold: #ffcf9e;
+        --purple: #b85cff;
+        --lilac: #ff9ecf;
+        --peach: #ffb199;
         --ink: #fdf2f4;
-        --ink-dim: rgba(253, 242, 244, 0.68);
-        --card: rgba(255, 255, 255, 0.06);
-        --card-border: rgba(255, 138, 168, 0.22);
-        --shadow-rose: 0 0 40px rgba(255, 77, 121, 0.25);
+        --ink-dim: rgba(253, 242, 244, 0.7);
+        --card: rgba(255, 255, 255, 0.08);
+        --card-border: rgba(255, 158, 207, 0.28);
+        --shadow-rose: 0 0 40px rgba(255, 77, 121, 0.3);
         --radius: 18px;
       }
 
@@ -45,20 +49,54 @@
         color: var(--ink);
         background:
           radial-gradient(
-            ellipse 900px 500px at 20% -10%,
-            rgba(255, 77, 121, 0.16),
+            ellipse 900px 550px at 15% -10%,
+            rgba(184, 92, 255, 0.28),
             transparent 60%
           ),
           radial-gradient(
-            ellipse 700px 500px at 100% 10%,
-            rgba(232, 180, 160, 0.1),
+            ellipse 750px 550px at 105% 15%,
+            rgba(255, 158, 207, 0.22),
             transparent 55%
           ),
-          linear-gradient(160deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
-        background-attachment: fixed;
+          radial-gradient(
+            ellipse 700px 500px at 50% 110%,
+            rgba(255, 93, 122, 0.28),
+            transparent 60%
+          ),
+          linear-gradient(
+            160deg,
+            var(--bg-1),
+            var(--bg-2) 40%,
+            var(--bg-3) 70%,
+            var(--bg-4)
+          );
+        background-size:
+          100% 100%,
+          100% 100%,
+          100% 100%,
+          100% 260%;
+        animation: dreamy-glow 18s ease-in-out infinite;
         overflow-x: hidden;
         display: flex;
         justify-content: center;
+      }
+
+      @keyframes dreamy-glow {
+        0%,
+        100% {
+          background-position:
+            0 0,
+            0 0,
+            0 0,
+            0 0%;
+        }
+        50% {
+          background-position:
+            0 0,
+            0 0,
+            0 0,
+            0 100%;
+        }
       }
 
       /* -------- utility -------- */
@@ -96,6 +134,43 @@
         100% {
           transform: translateY(110vh) rotate(300deg);
           opacity: 0;
+        }
+      }
+
+      .heart.bear {
+        font-size: 22px;
+      }
+
+      .heart.spin {
+        animation-name: fall-spin;
+      }
+
+      @keyframes fall-spin {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(0.9);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(55vh) rotate(180deg) scale(1.1);
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg) scale(0.9);
+          opacity: 0;
+        }
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          text-shadow: 0 0 30px rgba(255, 77, 121, 0.45);
+        }
+        50% {
+          text-shadow:
+            0 0 46px rgba(255, 77, 121, 0.7),
+            0 0 70px rgba(184, 92, 255, 0.45);
         }
       }
 
@@ -191,26 +266,35 @@
       .btn-primary {
         padding: 14px 40px;
         border-radius: 999px;
-        background: linear-gradient(135deg, var(--rose), #c81856);
+        background: linear-gradient(
+          135deg,
+          var(--purple),
+          var(--rose) 55%,
+          var(--peach)
+        );
+        background-size: 200% auto;
         color: #fff;
         font-size: 16px;
         font-weight: 700;
         box-shadow: var(--shadow-rose);
         transition:
           transform 0.25s ease,
-          box-shadow 0.25s ease;
+          box-shadow 0.25s ease,
+          background-position 0.5s ease;
       }
 
       .btn-primary:hover {
         transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 0 55px rgba(255, 77, 121, 0.4);
+        box-shadow:
+          0 0 55px rgba(255, 77, 121, 0.45),
+          0 0 30px rgba(184, 92, 255, 0.35);
+        background-position: right center;
       }
 
       .btn-primary:focus-visible,
       input:focus-visible,
-      .thumb:focus-visible,
-      .lightbox-close:focus-visible,
-      .lightbox-nav:focus-visible {
+      .carousel-arrow:focus-visible,
+      .dot:focus-visible {
         outline: 2px solid var(--gold);
         outline-offset: 3px;
       }
@@ -266,8 +350,26 @@
         font-weight: 700;
         font-size: clamp(40px, 9vw, 64px);
         margin-top: 10px;
-        color: var(--ink);
-        text-shadow: 0 0 34px rgba(255, 77, 121, 0.4);
+        background: linear-gradient(
+          90deg,
+          var(--rose),
+          var(--purple),
+          var(--peach),
+          var(--rose)
+        );
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation:
+          pulse-glow 4s ease-in-out infinite,
+          shine 6s linear infinite;
+      }
+
+      @keyframes shine {
+        to {
+          background-position: 300% center;
+        }
       }
 
       .hero .since {
@@ -375,7 +477,7 @@
         );
       }
 
-      /* -------- gallery -------- */
+      /* -------- carousel heading -------- */
       .gallery-heading {
         text-align: center;
         margin-bottom: 20px;
@@ -393,131 +495,105 @@
         margin-top: 6px;
       }
 
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
+      /* -------- carousel (single photo + arrows) -------- */
+      .carousel-wrap {
+        max-width: 420px;
+        margin: 0 auto;
       }
 
-      .thumb {
+      .carousel {
         position: relative;
-        aspect-ratio: 1 / 1;
-        border-radius: 14px;
+        aspect-ratio: 4 / 5;
+        border-radius: 20px;
         overflow: hidden;
         border: 1px solid var(--card-border);
-        background: rgba(255, 255, 255, 0.04);
-        padding: 0;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease;
+        background: var(--card);
+        box-shadow: var(--shadow-rose);
       }
 
-      .thumb:nth-child(6n + 1) {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-
-      .thumb img {
+      .carousel img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.5s ease;
-      }
-
-      .thumb:hover img {
-        transform: scale(1.08);
-      }
-
-      .thumb:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-rose);
-      }
-
-      .thumb::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          180deg,
-          transparent 55%,
-          rgba(0, 0, 0, 0.45)
-        );
         opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .thumb:hover::after {
-        opacity: 1;
-      }
-
-      @media (max-width: 520px) {
-        .gallery {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .thumb:nth-child(6n + 1) {
-          grid-column: span 2;
-          grid-row: span 1;
-        }
-      }
-
-      /* -------- lightbox -------- */
-      .lightbox {
-        position: fixed;
-        inset: 0;
-        background: rgba(10, 0, 5, 0.92);
-        backdrop-filter: blur(6px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-        padding: 20px;
-      }
-
-      .lightbox img {
-        max-width: min(90vw, 620px);
-        max-height: 80vh;
-        border-radius: 14px;
-        box-shadow: 0 0 60px rgba(255, 77, 121, 0.35);
-      }
-
-      .lightbox-close {
         position: absolute;
-        top: 22px;
-        left: 22px;
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        background: var(--card);
-        border: 1px solid var(--card-border);
-        color: var(--ink);
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        inset: 0;
+        transition: opacity 0.45s ease;
       }
 
-      .lightbox-nav {
+      .carousel img.active {
+        opacity: 1;
+        position: relative;
+      }
+
+      .carousel-arrow {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        width: 46px;
-        height: 46px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
-        background: var(--card);
+        background: rgba(20, 3, 12, 0.45);
         border: 1px solid var(--card-border);
         color: var(--ink);
         font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
+        backdrop-filter: blur(6px);
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+        z-index: 3;
       }
 
-      .lightbox-nav.prev {
-        right: 18px;
+      .carousel-arrow:hover {
+        transform: translateY(-50%) scale(1.08);
+        background: rgba(255, 77, 121, 0.45);
       }
-      .lightbox-nav.next {
-        left: 18px;
+
+      .carousel-arrow.prev {
+        right: 12px;
+      }
+      .carousel-arrow.next {
+        left: 12px;
+      }
+
+      .carousel-counter {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(20, 3, 12, 0.55);
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        z-index: 3;
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 16px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--card-border);
+        padding: 0;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .dot.active {
+        background: var(--rose);
+        transform: scale(1.35);
       }
 
       /* -------- closing cta -------- */
@@ -587,7 +663,7 @@
       <div class="audio-player">
         <span class="note">🎵</span>
         <span class="track">عمرو دياب - يا أجمل عيون</span>
-        <audio id="bg-music" src="music/track.mp3" controls></audio>
+        <audio id="bg-music" src="/06_Agmal_Eyoun.mp3" controls></audio>
       </div>
 
       <p class="message">
@@ -601,34 +677,77 @@
 
       <div class="gallery-heading">
         <h2>ذكرياتنا ❤️</h2>
-        <p>اضغطي على أي صورة لتكبيرها</p>
+        <p>استخدمي الأسهم للتنقل بين الصور</p>
       </div>
 
-      <div class="gallery" id="gallery">
-        <button class="thumb" data-index="0">
-          <img src="images/-5918058097862096981_121.jpg" alt="تسنيم 1" />
-        </button>
-        <button class="thumb" data-index="1">
-          <img src="images/-5962767517707516486_121.jpg" alt="تسنيم 2" />
-        </button>
-        <button class="thumb" data-index="2">
-          <img src="images/4544.jpg" alt="تسنيم 3" />
-        </button>
-        <button class="thumb" data-index="3">
-          <img src="images/5047.jpg" alt="تسنيم 4" />
-        </button>
-        <button class="thumb" data-index="4">
-          <img src="images/5575.jpg" alt="تسنيم 5" />
-        </button>
-        <button class="thumb" data-index="5">
-          <img src="images/IMG_20220827_180403_676.jpg" alt="تسنيم 6" />
-        </button>
-        <button class="thumb" data-index="6">
-          <img src="images/IMG_20231125_130729.jpg" alt="تسنيم 7" />
-        </button>
-        <button class="thumb" data-index="7">
-          <img src="images/IMG_٢٠٢١٠٧٢٤_٢٣٢٨٠٥.jpg" alt="تسنيم 8" />
-        </button>
+      <div class="carousel-wrap">
+        <div class="carousel" id="carousel">
+          <button
+            class="carousel-arrow prev"
+            id="car-prev"
+            aria-label="الصورة السابقة"
+          >
+            ›
+          </button>
+          <img
+            src="images/-5918058097862096981_121.jpg"
+            alt="تسنيم 1"
+            class="active"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/-5962767517707516486_121.jpg"
+            alt="تسنيم 2"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/4544.jpg"
+            alt="تسنيم 3"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/5047.jpg"
+            alt="تسنيم 4"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/5575.jpg"
+            alt="تسنيم 5"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/IMG_20220827_180403_676.jpg"
+            alt="تسنيم 6"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/IMG_20231125_130729.jpg"
+            alt="تسنيم 7"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            src="images/IMG_20210724_232805.jpg"
+            alt="تسنيم 8"
+            loading="lazy"
+            decoding="async"
+          />
+          <button
+            class="carousel-arrow next"
+            id="car-next"
+            aria-label="الصورة التالية"
+          >
+            ‹
+          </button>
+          <div class="carousel-counter" id="car-counter">1 / 8</div>
+        </div>
+        <div class="carousel-dots" id="car-dots"></div>
       </div>
 
       <div class="divider"></div>
@@ -648,18 +767,6 @@
 
       <footer>صُنعت بحب، ليكي وبس ❤️</footer>
     </main>
-
-    <!-- ===== lightbox ===== -->
-    <div class="lightbox hidden" id="lightbox">
-      <button class="lightbox-close" id="lb-close" aria-label="إغلاق">✕</button>
-      <button class="lightbox-nav prev" id="lb-prev" aria-label="السابقة">
-        ›
-      </button>
-      <img id="lb-img" src="" alt="" />
-      <button class="lightbox-nav next" id="lb-next" aria-label="التالية">
-        ‹
-      </button>
-    </div>
 
     <script>
       /* ---------- login ---------- */
@@ -698,63 +805,105 @@
         document.getElementById("t-secs").textContent = s;
       }, 1000);
 
-      /* ---------- falling hearts (lighter weight) ---------- */
+      /* ---------- falling hearts, teddy bears & sparkles ---------- */
+      const shower = ["❤️", "💗", "💕", "🧸", "✨", "💖", "🌸"];
       function spawnHeart() {
         const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.textContent = "❤️";
+        const symbol = shower[Math.floor(Math.random() * shower.length)];
+        const isBear = symbol === "🧸";
+        heart.className =
+          "heart" +
+          (isBear ? " bear" : "") +
+          (Math.random() > 0.5 ? " spin" : "");
+        heart.textContent = symbol;
         heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+        heart.style.fontSize = (isBear ? 20 : 14) + Math.random() * 10 + "px";
+        heart.style.animationDuration = 4 + Math.random() * 5 + "s";
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 9000);
+        setTimeout(() => heart.remove(), 10000);
       }
-      setInterval(spawnHeart, 600);
+      setInterval(spawnHeart, 450);
 
-      /* ---------- lightbox gallery ---------- */
-      const thumbs = Array.from(document.querySelectorAll(".thumb"));
-      const lightbox = document.getElementById("lightbox");
-      const lbImg = document.getElementById("lb-img");
-      let currentIndex = 0;
+      /* ---------- guard against broken image paths ---------- */
+      document.querySelectorAll(".carousel img").forEach((img) => {
+        img.addEventListener(
+          "error",
+          function handleError() {
+            console.warn("لم يتم العثور على الصورة:", img.getAttribute("src"));
+            img.removeEventListener("error", handleError);
+            img.src =
+              "data:image/svg+xml;utf8," +
+              encodeURIComponent(
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#2b0714"/><text x="50%" y="50%" font-size="48" text-anchor="middle" dominant-baseline="middle">🧸</text></svg>',
+              );
+          },
+          { once: true },
+        );
+      });
 
-      function openLightbox(i) {
-        currentIndex = i;
-        updateLightboxImage();
-        lightbox.classList.remove("hidden");
-      }
-
-      function updateLightboxImage() {
-        const img = thumbs[currentIndex].querySelector("img");
-        lbImg.src = img.src;
-        lbImg.alt = img.alt;
-      }
-
-      function closeLightbox() {
-        lightbox.classList.add("hidden");
-      }
-
-      thumbs.forEach((t, i) =>
-        t.addEventListener("click", () => openLightbox(i)),
+      /* ---------- carousel: one photo at a time, with arrows ---------- */
+      const carousel = document.getElementById("carousel");
+      const slides = Array.from(carousel.querySelectorAll("img"));
+      const counter = document.getElementById("car-counter");
+      const dotsWrap = document.getElementById("car-dots");
+      let slideIndex = slides.findIndex((img) =>
+        img.classList.contains("active"),
       );
+      if (slideIndex < 0) slideIndex = 0;
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.className = "dot" + (i === slideIndex ? " active" : "");
+        dot.setAttribute("aria-label", `صورة رقم ${i + 1}`);
+        dot.addEventListener("click", () => showSlide(i));
+        dotsWrap.appendChild(dot);
+      });
+      const dots = Array.from(dotsWrap.children);
+
+      function showSlide(i) {
+        slides[slideIndex].classList.remove("active");
+        dots[slideIndex].classList.remove("active");
+        slideIndex = (i + slides.length) % slides.length;
+        slides[slideIndex].classList.add("active");
+        dots[slideIndex].classList.add("active");
+        counter.textContent = `${slideIndex + 1} / ${slides.length}`;
+      }
+
+      /* في التخطيط من اليمين لليسار (RTL): زر "التالية" بيتحرك للصورة الجاية،
+         و"السابقة" بيرجع للصورة اللي قبلها */
       document
-        .getElementById("lb-close")
-        .addEventListener("click", closeLightbox);
-      document.getElementById("lb-prev").addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % thumbs.length;
-        updateLightboxImage();
-      });
-      document.getElementById("lb-next").addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
-        updateLightboxImage();
-      });
-      lightbox.addEventListener("click", (e) => {
-        if (e.target === lightbox) closeLightbox();
-      });
+        .getElementById("car-next")
+        .addEventListener("click", () => showSlide(slideIndex + 1));
+      document
+        .getElementById("car-prev")
+        .addEventListener("click", () => showSlide(slideIndex - 1));
+
       document.addEventListener("keydown", (e) => {
-        if (lightbox.classList.contains("hidden")) return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowLeft") document.getElementById("lb-prev").click();
-        if (e.key === "ArrowRight") document.getElementById("lb-next").click();
+        if (e.key === "ArrowLeft") showSlide(slideIndex + 1);
+        if (e.key === "ArrowRight") showSlide(slideIndex - 1);
       });
+
+      /* لمسة السحب على الموبايل */
+      let touchStartX = null;
+      carousel.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      carousel.addEventListener(
+        "touchend",
+        (e) => {
+          if (touchStartX === null) return;
+          const diff = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(diff) > 40) {
+            diff < 0 ? showSlide(slideIndex + 1) : showSlide(slideIndex - 1);
+          }
+          touchStartX = null;
+        },
+        { passive: true },
+      );
     </script>
   </body>
 </html>
